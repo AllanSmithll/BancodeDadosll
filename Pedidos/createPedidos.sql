@@ -1,3 +1,5 @@
+-- Allan Amancio - 12/03/2023
+
 CREATE TABLE Cliente (
 CodCLI Serial PRIMARY KEY,
 Nome Varchar(30),

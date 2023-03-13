@@ -1,3 +1,5 @@
+-- Allan Amancio - 12/03/2023
+
 create table departamento (
    CodDepto                      serial not null, 
    Nome                          varchar(20),

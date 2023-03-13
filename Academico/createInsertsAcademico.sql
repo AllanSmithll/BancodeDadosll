@@ -1,3 +1,5 @@
+-- Allan Amancio - 12/03/2023
+
 -- Aula 03 - DDL e constraints
 
 -- Vamos criar um esquema com algumas tabelas de um "sistema acadêmico"
