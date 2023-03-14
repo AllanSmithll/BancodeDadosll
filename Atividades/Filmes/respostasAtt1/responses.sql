@@ -101,3 +101,16 @@ from Filme F
     join Categoria C
     on F.codcateg = C.codcateg
 group by C.desccateg;
+
+-- Questão 10
+select a.nomeart, p.nomepers
+from artista a 
+	left outer join personagem p 
+	on a.codart = p.codart;
+
+-- Questão 11
+Select f.titulo as Filme, c.desccateg as Categoria
+From filme f 
+	right join categoria c 
+	on f.codcateg = c.codcateg
+Where f.codcateg is null;
