@@ -129,7 +129,7 @@ where p.numped in
         where i.codprod in 
                (select pr.codprod 
                 from produto pr
-                where descricao like 'Chocolate'))
+                where descricao like 'Chocolate'));
 
 -- Create table as
 
