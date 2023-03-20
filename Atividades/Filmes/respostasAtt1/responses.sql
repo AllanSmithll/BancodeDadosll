@@ -114,3 +114,22 @@ From filme f
 	right join categoria c 
 	on f.codcateg = c.codcateg
 Where f.codcateg is null;
+
+-- Tarefa 03 - 20/03/2023
+
+-- Questão 1
+select f.titulo
+from filme f
+where f.codest in (select e.codest
+               	from estudio e
+               	where e.nomeest like 'P%')
+order by f.titulo;
+
+-- Questão 2
+select f.titulo
+from filme f
+where exists
+ 	(select e.codest
+ 	 from estudio e
+  	 where f.codest = e.codest and nomeest like 'P%')
+order by f.titulo;
