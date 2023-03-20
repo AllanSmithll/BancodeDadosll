@@ -146,6 +146,9 @@ create table vendedor1 as
      select * from vendedor where 1=2;
 select * from vendedor1;
 
+create table vendedor2 
+    as select * from vendedor;
+
 -- AntiJOINs
 
 SELECT c.nome, c.codcli 
