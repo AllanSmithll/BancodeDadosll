@@ -1,0 +1,83 @@
+-- QUESTÃO 1: Execute ou elabore consultas conforme se pede a seguir:
+
+-- Questão 1.1
+Select * from empregado order by matricula;
+
+-- Questão 1.2:
+select *
+from empregado
+where cargo in ('Analista de Sistemas Pleno');
+
+-- Questão 1.3
+Select e.primeironome || ' ' || e.sobrenome 
+    as "Empregado ", d.nome 
+    as "Departamento" 
+From empregado e 
+    join departamento d 
+    on e.coddepto = d.coddepto;
+    
+-- Questão 1.4
+Select d.nome, count(e.matricula)
+from Empregado e 
+    join Departamento d 
+    on e.coddepto = d.coddepto
+group by d.nome;
+
+-- Questão 1.5
+select d.nome
+from Empregado e 
+    join Departamento d 
+    on e.coddepto = d.coddepto
+group by d.nome
+having count(e.matricula) > 3;
+
+-- Questão 1.6
+select d.nome, count(e.matricula)
+from Empregado e 
+    join Departamento d 
+    on e.coddepto = d.coddepto
+where cargo like '%Engenheiro%'
+group by d.nome;
+
+-- Questão 1.7
+Select  g.primeironome || ' ' || g.sobrenome 
+    as "Gerente", e.primeironome || ' ' || e.sobrenome 
+    as "Empregado"  
+From (empregado e 
+      join empregado g   
+      on e.gerente = g.matricula)   
+order by g.Gerente;
+
+-- Questão 1.7.1
+Select g.primeironome as "Gerente", 
+    count(e.matricula) as "Quantidade de empregados"  
+From (empregado e 
+      join empregado g   
+      on e.gerente = g.matricula)
+group by g.gerente
+order by g.gerente;
+
+-- QUESTÃO 2: resolver com subconsultas
+
+-- Questão 2.1
+Select e.primeironome
+from Empregado e
+    join Departamento d
+    on e.coddepto = d.coddepto
+where d.nome like 'P%';
+
+-- Questão 2.2
+select e.sobrenome
+from empregado e
+where not in (select g.sobrenome
+              from empregado g
+              where g.sobrenome like 'Guedes');
+              
+-- Questão 2.3
+select e.primeironome
+from Empregado e
+where exists (select e.matricula
+                  from empregado e
+                  where e.coddepto = null);
+
+-- QUESTÃO 3
