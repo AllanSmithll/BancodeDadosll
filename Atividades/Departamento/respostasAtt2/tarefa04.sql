@@ -46,16 +46,16 @@ Select  g.primeironome || ' ' || g.sobrenome
 From (empregado e 
       join empregado g   
       on e.gerente = g.matricula)   
-order by g.Gerente;
+order by g.gerente;
 
--- Questão 1.7.1
-Select g.primeironome as "Gerente", 
-    count(e.matricula) as "Quantidade de empregados"  
+-- Questão 1.7.1:
+Select  g.primeironome || ' ' || g.sobrenome 
+    as "Gerente", count(*) as "Quantidade de Empregados"  
 From (empregado e 
       join empregado g   
       on e.gerente = g.matricula)
-group by g.gerente
-order by g.gerente;
+group by g.matricula
+order by "Quantidade de Empregados" DESC;
 
 -- QUESTÃO 2: resolver com subconsultas
 
@@ -67,17 +67,32 @@ from Empregado e
 where d.nome like 'P%';
 
 -- Questão 2.2
-select e.sobrenome
+select e.sobrenome as "Sobrenome do subordinado"
 from empregado e
-where not in (select g.sobrenome
-              from empregado g
-              where g.sobrenome like 'Guedes');
+where e.gerente in (select g.matricula
+              		from empregado g
+              		where g.sobrenome like 'Guedes');
               
 -- Questão 2.3
 select e.primeironome
 from Empregado e
-where exists (select e.matricula
-                  from empregado e
-                  where e.coddepto = null);
+where not exists (select *
+                  from departamento d
+                  where e.coddepto = d.coddepto);
+				  
+--insert into Empregado values (default,'Anderson','Oliveira',
+							  current_date,'Designer de Interface Sênior',
+							  4800.00,null,null);
 
--- QUESTÃO 3
+-- QUESTÃO 3: criar VIEW
+create or replace view NomeEmpsDepts
+(primeironome, nome)
+as select e.primeironome, d.nome
+	from empregado e
+		left join departamento d
+		on e.coddepto = d.coddepto;
+		
+select * from NomeEmpsDepts;
+-- drop view NomeEmpsDepts;
+
+-- Questão 3.1
