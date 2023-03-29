@@ -17,7 +17,7 @@ From empregado e
     on e.coddepto = d.coddepto;
     
 -- Questão 1.4
-Select d.nome, count(e.matricula)
+Select d.nome, count(*)
 from Empregado e 
     join Departamento d 
     on e.coddepto = d.coddepto
@@ -48,7 +48,7 @@ From (empregado e
       on e.gerente = g.matricula)   
 order by g.gerente;
 
--- Questão 1.7.1:
+-- Questão 1.7.1
 Select  g.primeironome || ' ' || g.sobrenome 
     as "Gerente", count(*) as "Quantidade de Empregados"  
 From (empregado e 
@@ -62,9 +62,11 @@ order by "Quantidade de Empregados" DESC;
 -- Questão 2.1
 Select e.primeironome
 from Empregado e
-    join Departamento d
-    on e.coddepto = d.coddepto
-where d.nome like 'P%';
+where e.coddepto in(
+				select d.coddepto
+				from departamento d
+				where d.nome like 'P%'
+				);
 
 -- Questão 2.2
 select e.sobrenome as "Sobrenome do subordinado"
