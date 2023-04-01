@@ -32,11 +32,11 @@ group by d.nome
 having count(e.matricula) > 3;
 
 -- Questão 1.6
-select d.nome, count(e.matricula)
+select * from empregado;
+select d.nome, sum(e.salario)
 from Empregado e 
     join Departamento d 
     on e.coddepto = d.coddepto
-where cargo like '%Engenheiro%'
 group by d.nome;
 
 -- Questão 1.7
@@ -82,9 +82,7 @@ where not exists (select *
                   from departamento d
                   where e.coddepto = d.coddepto);
 				  
---insert into Empregado values (default,'Anderson','Oliveira',
-							  current_date,'Designer de Interface Sênior',
-							  4800.00,null,null);
+--insert into Empregado values (default,'Anderson','Oliveira', current_date,'Designer de Interface Sênior', 4800.00,null,null);
 
 -- QUESTÃO 3: criar VIEW
 create or replace view NomeEmpsDepts
@@ -98,3 +96,71 @@ select * from NomeEmpsDepts;
 -- drop view NomeEmpsDepts;
 
 -- Questão 3.1
+insert into NomeEmpsDepts values ('Diogo');
+
+-- Questão 3.2
+insert into empregado values (default, 'Diogo', 'Souza', current_date,'Engenheiro de Software Pleno', 5000.00,7,1);
+select * from NomeEmpsDepts;
+select * from empregado order by matricula;
+
+-- Questão 4
+select * from departamento;
+
+create or replace view Depts 
+(coddepto, nome, local)
+as select *
+	from departamento;
+select * from Depts;
+
+insert into Depts values (default, 'Marketing', 'Sede');
+insert into Depts values (default, 'Almoxarifado', 'Sede');
+-- drop view Depts;
+
+-- Questão 5
+create or replace view EmprgsWithM
+(primeironome, matricula, dataadmissao)
+as select primeironome, matricula, dataadmissao as "Data de Admissão"
+	from empregado
+	where primeironome like 'M%'
+	with check option;
+
+select * from EmprgsWithM;
+
+insert into EmprgsWithM values ('Mário', default, current_date);
+insert into EmprgsWithM values ('Kléber', default, current_date); -- Esta linha dá erro, pois primeironome não começa com "M"
+-- drop view EmprgsWithM;
+
+-- Questão 6
+select e.matricula
+from empregado e
+  EXCEPT -- Todas as linhas da primeira consulta que não estão na segunda
+select e.gerente
+from empregado e;
+
+select e.matricula
+from empregado e
+  INTERSECT -- Todas as linhas que estão em ambas as consultas
+select e.gerente
+from empregado e;
+
+-- Questão 7
+select e.coddepto
+from empregado e
+where e.dataadmissao>'20-01-2021'
+   INTERSECT
+select d.coddepto
+from departamento d;
+
+-- Com subquere
+select e.coddepto
+from empregado e
+where exists (
+  select *
+  from empregado 
+  where dataadmissao > '2021-01-20'
+)
+   INTERSECT
+select d.coddepto
+from departamento d;
+
+-- Com JOIN
