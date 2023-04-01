@@ -103,7 +103,7 @@ insert into empregado values (default, 'Diogo', 'Souza', current_date,'Engenheir
 select * from NomeEmpsDepts;
 select * from empregado order by matricula;
 
--- Questão 4
+-- QUESTÃO 4
 select * from departamento;
 
 create or replace view Depts 
@@ -116,7 +116,7 @@ insert into Depts values (default, 'Marketing', 'Sede');
 insert into Depts values (default, 'Almoxarifado', 'Sede');
 -- drop view Depts;
 
--- Questão 5
+-- QUESTÃO 5
 create or replace view EmprgsWithM
 (primeironome, matricula, dataadmissao)
 as select primeironome, matricula, dataadmissao as "Data de Admissão"
@@ -130,7 +130,7 @@ insert into EmprgsWithM values ('Mário', default, current_date);
 insert into EmprgsWithM values ('Kléber', default, current_date); -- Esta linha dá erro, pois primeironome não começa com "M"
 -- drop view EmprgsWithM;
 
--- Questão 6
+-- QUESTÃO 6
 select e.matricula
 from empregado e
   EXCEPT -- Todas as linhas da primeira consulta que não estão na segunda
@@ -143,7 +143,7 @@ from empregado e
 select e.gerente
 from empregado e;
 
--- Questão 7
+-- QUESTÃO 7
 select e.coddepto
 from empregado e
 where e.dataadmissao>'20-01-2021'
@@ -163,4 +163,26 @@ where exists (
 select d.coddepto
 from departamento d;
 
--- Com JOIN
+-- Com JOIN e DISTINCT
+select distinct e.coddepto
+from empregado e
+	join departamento d
+	on e.coddepto = d.coddepto
+where e.dataadmissao > '2021-01-20';
+
+-- QUESTÃO 8
+WITH
+Custo_depto as (
+  Select d.nome, sum(e.salario) as total_depto
+  From empregado e JOIN departamento d 
+       on e.coddepto = d.coddepto
+  Group by d.nome),
+  Custo_medio as (
+	Select sum(total_depto)/Count(*) as media_dep
+	From Custo_depto)
+Select *
+From Custo_depto
+Where total_depto > (
+        	Select media_dep
+        	From Custo_medio)
+Order by nome; 
