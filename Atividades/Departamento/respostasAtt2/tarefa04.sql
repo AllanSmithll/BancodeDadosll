@@ -1,3 +1,4 @@
+-- Allan Alves Amâncio - 2023.1 - Banco de Dados ll - Sistemas para Internet - IFPB
 -- QUESTÃO 1: Execute ou elabore consultas conforme se pede a seguir:
 
 -- Questão 1.1
