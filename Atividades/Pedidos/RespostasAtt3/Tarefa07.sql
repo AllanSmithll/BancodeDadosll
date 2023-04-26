@@ -102,3 +102,4 @@ Declare
  End$$;
 select * from produto;
 
+-- Questão 5
