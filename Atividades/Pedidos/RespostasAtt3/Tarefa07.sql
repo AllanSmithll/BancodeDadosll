@@ -81,8 +81,9 @@ Do $$ Declare
  close p_cursor_prod;
  End$$;
  */
- -- Resposta
- Do $$ Declare 
+-- Resposta
+Do $$ 
+Declare 
     qtd_atual produto.quantest%type;
     v_cod produto.codprod%type;
     p_cursor_prod cursor for
@@ -100,3 +101,4 @@ Do $$ Declare
    end loop;
  End$$;
 select * from produto;
+
