@@ -73,6 +73,7 @@ $$ LANGUAGE 'plpgsql';
 select getSumsalario();
 
 -- Questão 3
+--drop table fornecedor;
 create table fornecedor
 (
  codigo serial not null primary key,
@@ -81,4 +82,41 @@ create table fornecedor
  email varchar(15)
 );
 create or replace function inserirFornecedor(
-nome fornecedor.nome%type, cnpj fornecedor.)
+	nome fornecedor.nome%type,
+	cnpj fornecedor.cnpj%type,
+	email fornecedor.email%type)
+returns void
+AS $$ Declare
+	begin
+		insert into fornecedor values(default, nome, cnpj, email);
+	end;
+	$$ LANGUAGE 'plpgsql';
+
+select * from fornecedor;
+select inserirFornecedor('Jonatas Peixe', '111111111', 'naowa@jsoso');
+select inserirFornecedor('Jonatas da Carne', '111111112', 'naowa@jsdeso');
+select inserirFornecedor('Jonatas do Leite', '111111113', 'aodswwa@jsoso');
+--truncate fornecedor;
+
+-- Questão 4
+create or replace function showFornecedor()
+returns void
+as $$ declare
+	f_cod fornecedor.codigo%type;
+	f_nome fornecedor.nome%type;
+	f_email fornecedor.email%type;
+	f_cursor Cursor for
+		select codigo, nome, email 
+		from fornecedor;
+begin
+	for f_linha in f_cursor loop
+		f_cod:=f_linha.codigo;
+		f_nome:=f_linha.nome;
+		f_email:=f_linha.email;
+		raise notice 'Dados do Fornecedor: %, %, %', f_cod, f_nome, f_email;
+	end loop;
+	end;
+	$$ LANGUAGE 'plpgsql';
+
+select * from fornecedor;
+select showFornecedor();
