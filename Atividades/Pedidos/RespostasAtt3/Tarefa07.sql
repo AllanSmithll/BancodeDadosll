@@ -103,3 +103,19 @@ Declare
 select * from produto;
 
 -- Questão 5
+Do $$
+Declare
+	cods_v vendedor.codvend%type;
+	nome_v vendedor.nome%type;
+	salar_v vendedor.salariofixo%type;
+	v_cursor cursor for
+		select codvend, nome, salariofixo
+		from vendedor order by codvend;
+begin
+	for vend in v_cursor loop -- Os registros de vendedor passa a se chamar "vend"
+		cods_v:=vend.codvend;
+		nome_v:=vend.nome;
+		salar_v:=vend.salariofixo;
+		raise notice 'Código=%; Nome=%; Salário=%', cods_v, nome_v, salar_v;
+	end loop;
+end$$;

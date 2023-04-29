@@ -3,7 +3,7 @@
 -- Parte 01
 -- desabilite o autocommit; 
 -- Iniciando transação
-select * from vendedor;
+select * from vendedor order by codvend;
 insert into vendedor values(default,'Melissa Gonçalves', '28/07/1988', 3300.80,'B');
 insert into vendedor values(default,'Debora Maciel', '20/04/1990', 3300.80,'B');
 insert into vendedor values(default,'Alicia Silva', '28/06/1998', 2300.80,'C');

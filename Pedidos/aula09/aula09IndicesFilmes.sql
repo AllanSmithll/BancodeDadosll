@@ -19,6 +19,7 @@ select titulo from testafilme order by titulo;
 
 --- criando índice
 create index testaFilmeindex on testafilme(titulo);
+---
 
 explain select titulo from testafilme order by titulo; 
 select titulo from testafilme order by titulo; 
