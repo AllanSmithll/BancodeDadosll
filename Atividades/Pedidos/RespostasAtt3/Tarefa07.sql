@@ -119,3 +119,20 @@ begin
 		raise notice 'Código=%; Nome=%; Salário=%', cods_v, nome_v, salar_v;
 	end loop;
 end$$;
+
+-- Versão que fiz estudando para a prova
+do $$
+declare
+	v_codvend vendedor.codvend%type;
+	v_nomevend vendedor.nome%type;
+	v_salariofixo vendedor.salariofixo%type;
+	c_vend cursor for 
+		select codvend, nome, salariofixo from vendedor;
+begin
+	for v_vend in c_vend loop
+		v_codvend := v_vend.codvend;
+		v_nomevend := v_vend.nome;
+		v_salariofixo := v_vend.salariofixo;
+		raise notice 'Vendedor: %, %, %', v_codvend, v_nomevend, v_salariofixo;
+	end loop;
+end$$;
