@@ -122,6 +122,28 @@ select * from estudio;
 select * from filme;
 
 -- Questão 6
+select * from artista;
 create or replace function idadeArtista(
     codigoArtista artista.codart%type
 ) returns varchar(30) as $$
+declare 
+	vcodArt integer;
+	vDataNasc date;
+	vIdadeArtista int;
+	c_cursor cursor for (select * from artista);
+begin
+	for artista in c_cursor loop
+		if artista.codart = codigoArtista then
+			vcodArt= artista.codart;
+			vDataNasc = artista.datanasc;
+			vIdadeArtista = extract(year from (age(vDataNasc)));
+			raise notice 'O artista de código % tem % anos.', vcodArt, vIdadeArtista;
+			return vIdadeArtista;
+		elsif NOT FOUND then
+			return 'Nenhuma artista com esse código encontrado.';
+		end if;
+	end loop;
+end; $$ language 'plpgsql';
+
+select * from artista;
+select idadeArtista(8);
