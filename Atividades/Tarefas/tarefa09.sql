@@ -108,6 +108,12 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 -- DROP function atualizaConstraintFilmes() cascade;
+/*
+Estrutura importante que é a base dessa function
+  ALTER TABLE filme
+        ADD CONSTRAINT fkfilme2estud
+        FOREIGN KEY (codestud) REFERENCES estudio ON UPDATE CASCADE;
+*/
 
 create or replace trigger TriggerAtualizaConstraintFilmes
 after update on estudio for each row
@@ -118,8 +124,6 @@ select * from estudio;
 select * from filme;
 update estudio set codest=8 where codest=6;
 update estudio set codest=6 where codest=8;
-select * from estudio;
-select * from filme;
 
 -- Questão 6
 select * from artista;
