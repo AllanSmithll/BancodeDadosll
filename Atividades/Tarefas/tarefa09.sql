@@ -1,4 +1,4 @@
--- Tarefa 9 sobre Triggers e Functions - 15/06/2023
+-- Tarefa 9 sobre Triggers e Functions - 15/05/2023
 -- Questão 1
 Create or Replace Function trocaNome()
 Returns trigger as $$
@@ -47,11 +47,10 @@ select * from filmelog;
 select * from filme;
 select * from categoria;
 select * from estudio;
-insert into filme values(default, 'Superman', 2021, 200, 1, 7);
+insert into filme values(default, 'Superman', 2021, 200, 1, 3);
 
 -- Questão 3
-create or replace view filmeCateg 
-(filme, categoria)
+create or replace view filmeCateg
 as select f.titulo, c.desccateg
     from filme f 
     inner join categoria c 
@@ -64,18 +63,21 @@ select * from artista;
 create or replace function insereFilmeDaView() 
 returns trigger as $$
 declare 
-    codcateg_id integer; 
-    UltCodCateg integer;
+    vCodFilme integer; 
+    vCodCateg integer;
 begin
-    begin
-        select into strict codcateg_id from categoria where desccateg = new.categoria;
-        select max(codcateg)+1 into UltCodCateg from categoria;
+	begin
+		select max(codfilme)+1 into vCodFilme from filme;
+    	select codcateg into strict vCodCateg from categoria where desccateg = new.desccateg;
+    	insert into filme (codfilme, titulo, codcateg) values (vCodFilme, new.titulo, vCodCateg);
+		return new;
+	end;
     EXCEPTION
         when no_data_found then
-            insert into categoria(codcateg, desccateg) values (UltCodCateg, new.categoria) returning codcateg into codcateg_id;
-    end;
-    insert into filme (codfilme, titulo, codcateg) values (default, new.titulo, codcateg_id);
-    return new;
+			select max(codcateg)+1 into vCodCateg from categoria;
+        	insert into categoria(codcateg,desccateg) values (vCodCateg, new.desccateg);
+    		insert into filme (codfilme, titulo, codcateg) values (vCodFilme, new.titulo, vCodCateg);
+    		return new;
 end;
 $$ language plpgsql;
 
@@ -85,6 +87,11 @@ execute procedure insereFilmeDaView();
 
 -- Teste com inserts
 insert into filmeCateg values ('Pé de Feijão', 'Vida Escolar');
+insert into filmeCateg values ('Justiceiro', 'Terror');
+insert into filmeCateg values ('PJ Masks', 'Infantil');
+select * from filme;
+select * from categoria;
+select * from filmeCateg;
 
 -- Questão 6
 create or replace function idadeArtista(
