@@ -1,4 +1,4 @@
--- Tarefa 9 sobre Triggers e Functions - 15/05/2023
+-- Tarefa 9 sobre Triggers e Functions - 16/05/2023
 -- Questão 1
 Create or Replace Function trocaNome()
 Returns trigger as $$
@@ -92,6 +92,27 @@ insert into filmeCateg values ('PJ Masks', 'Infantil');
 select * from filme;
 select * from categoria;
 select * from filmeCateg;
+
+-- Questão 5
+select * from filme;
+alter table filme drop constraint fkfilme2estud;
+
+create or replace function atualizaConstraintFilmes()
+returns trigger as $$
+begin
+	alter table filme add constraint fkfilme2estud
+	foreign key (codestud) references estudio on update cascade;
+	return new;
+end;
+$$ language 'plpgsql';
+
+create or replace trigger TriggerAtualizaConstraintFilmes
+before update on filme for each row
+execute procedure atualizaConstraintFilmes();
+
+select * from estudio;
+update estudio set codest=7 where codest=6;
+select * from filme;
 
 -- Questão 6
 create or replace function idadeArtista(
