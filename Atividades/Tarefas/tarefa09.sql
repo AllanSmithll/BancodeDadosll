@@ -144,7 +144,7 @@ begin
 			raise notice 'O artista de código % tem % anos.', vcodArt, vIdadeArtista;
 			return vIdadeArtista;
 		elsif NOT FOUND then
-			return 'Nenhuma artista com esse código encontrado.';
+			return 'Nenhum artista com esse código encontrado.';
 		end if;
 	end loop;
 end; $$ language 'plpgsql';
