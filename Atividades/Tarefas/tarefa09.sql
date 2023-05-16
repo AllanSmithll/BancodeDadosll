@@ -124,6 +124,8 @@ select * from estudio;
 select * from filme;
 update estudio set codest=8 where codest=6;
 update estudio set codest=6 where codest=8;
+alter table filme add constraint fkfilme2estud
+	foreign key (codest) references estudio(codest) on delete cascade;
 
 -- Questão 6
 select * from artista;
