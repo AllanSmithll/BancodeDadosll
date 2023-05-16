@@ -1,10 +1,10 @@
--- Aula sobre Funções do Postgres
+-- Aula sobre Funções do Postgres - 10/04/2023
 -- 1.Funções
 -- 1.1 Principais funções para números
 select abs(-15) "Absoluto";
 Select ABS(-15);
-Select CEIL(15.7);
-Select FLOOR(15.7);
+Select CEIL(15.7); -- Maior inteiro
+Select FLOOR(15.7); -- Menor inteiro
 Select MOD(10,4);
 Select power(3,2);
 Select ROUND(15.193,1) “Round”;
@@ -34,9 +34,9 @@ Select SUBSTR('Juliana',0,4);
 Select UPPER('Informática');
 -- length()
 Select LENGTH('Informatica');
--- lpad()
+-- lpad() - left
 Select LPAD('1234',10,'0');
--- rpad()
+-- rpad() - right
 Select RPAD('1234',10,'0');
 
 -- 1.3 Funções de Conversão
@@ -49,7 +49,7 @@ Select to_char(current_timestamp,
 -- To_Char(integer)
 Select to_char(10000,'L99G999D99') "Valor";
 -- To_date
-Select To_date('12-01-2016','MM/DD/YY');
+Select To_date('12-01-2016','MM/DD/YYYY');
 -- To_number
 SELECT to_number('12.730', '99999.99');
 --To_timestamp(text, text)
@@ -62,8 +62,8 @@ Select TO_CHAR(Current_date,'MM-DD-
 YYYY') "Hoje";
 select current_date;
 -- Age(timestamp,timestamp)
-Select age(timestamp '2016-04-10', timestamp
-'1999-06-13');
+Select age(current_date, timestamp
+'2004-11-04');
 Select age(timestamp '2016-04-10', timestamp
 '1999-06-13');
 
