@@ -95,23 +95,30 @@ select * from filmeCateg;
 
 -- Questão 5
 select * from filme;
-alter table filme drop constraint fkfilme2estud;
+alter table filme drop constraint IF EXISTS fkfilme2estud;
 
-create or replace function atualizaConstraintFilmes()
-returns trigger as $$
-begin
-	alter table filme add constraint fkfilme2estud
-	foreign key (codestud) references estudio on update cascade;
-	return new;
-end;
-$$ language 'plpgsql';
+-- Ação importante
+-- UPDATE filme SET codest=null WHERE codest NOT IN (SELECT codest FROM estudio);
+
+CREATE OR REPLACE FUNCTION atualizaConstraintFilmes()
+RETURNS TRIGGER AS $$
+BEGIN
+    update Filme set codest=new.codest where codest=old.codest;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+-- DROP function atualizaConstraintFilmes() cascade;
 
 create or replace trigger TriggerAtualizaConstraintFilmes
-before update on filme for each row
-execute procedure atualizaConstraintFilmes();
+after update on estudio for each row
+execute function atualizaConstraintFilmes();
+-- drop trigger TriggerAtualizaConstraintFilmes on estudio;
 
 select * from estudio;
-update estudio set codest=7 where codest=6;
+select * from filme;
+update estudio set codest=8 where codest=6;
+update estudio set codest=6 where codest=8;
+select * from estudio;
 select * from filme;
 
 -- Questão 6
