@@ -1,4 +1,4 @@
--- Tarefa 10 - Exercícios Pgplsql - 17/05/2023
+-- Tarefa 10 - Exercícios Pgplsql - 18/05/2023
 -- Questão 1
 select 123.456::decimal;
 select 123::smallint;
@@ -111,3 +111,11 @@ select * from testeINC;
 -- 5.2
 alter table empregado add column datanasc date;
 select * from empregado;
+
+-- Inserir datas de nascimento aleatórias na tabela empregados
+insert into empregados (data_nascimento)
+select
+    (CURRENT_DATE - INTERVAL '1 year' * RANDOM() * 50) -- Gera uma data de nascimento aleatória nos últimos 50 anos
+FROM 
+    generate_series(1, 10); -- Insere 10 registros na tabela empregados
+
