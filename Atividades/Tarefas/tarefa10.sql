@@ -112,10 +112,7 @@ select * from testeINC;
 alter table empregado add column datanasc date;
 select * from empregado;
 
--- Inserir datas de nascimento aleatórias na tabela empregados
-insert into empregados (data_nascimento)
-select
-    (CURRENT_DATE - INTERVAL '1 year' * RANDOM() * 50) -- Gera uma data de nascimento aleatória nos últimos 50 anos
-FROM 
-    generate_series(1, 10); -- Insere 10 registros na tabela empregados
-
+-- Atualizar datas de nascimento aleatórias para registros com menos de 21 anos
+UPDATE empregados
+SET data_nascimento = CURRENT_DATE - INTERVAL '1 years' * random() * 50
+WHERE date_part('year', age(data_nascimento)) < 21;
