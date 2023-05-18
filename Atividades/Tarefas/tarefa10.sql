@@ -112,7 +112,7 @@ select * from testeINC;
 alter table empregado add column datanasc date;
 select * from empregado;
 
--- Atualizar datas de nascimento aleatórias para registros com menos de 21 anos
+-- Atualizar datas aleatórias dos epregados, para que tenham mais de 21 anos
 UPDATE empregados
 SET data_nascimento = CURRENT_DATE - INTERVAL '1 years' * random() * 50
 WHERE date_part('year', age(data_nascimento)) < 21;
