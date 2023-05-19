@@ -113,6 +113,48 @@ alter table empregado add column datanasc date;
 select * from empregado;
 
 -- Atualizar datas aleatórias dos epregados, para que tenham mais de 21 anos
-UPDATE empregados
+UPDATE empregado
 SET data_nascimento = CURRENT_DATE - INTERVAL '1 years' * random() * 50
 WHERE date_part('year', age(data_nascimento)) < 21;
+
+select primeironome, datanasc
+from empregado;
+
+-- Questão 6
+create or replace function calculaIdade()
+returns trigger as $$
+declare 
+	idade int;
+	c_empregados cursor for
+		select * from empregado;
+begin
+	for empregados in c_empregados loop
+		select abs(extract(year from age(new.datanasc))) into idade;
+		if idade < 21 then
+			raise exception 'Muito jovem para o cargo!';
+		end if;
+	end loop;
+	return new;
+end $$ language 'plpgsql';
+
+create or replace trigger calculaIdadeTrigger
+before insert or update on empregado for each row
+execute function calculaIdade();
+
+update empregado
+set datanasc = '20-10-2020'
+where primeironome = 'Ricardo';
+
+-- Questão 7
+create or replace function showEmpregado()
+returns void as $$
+declare
+    nome_empregado empregado.primeironome%type;
+begin
+    for nome_empregado in select primeironome from empregado LOOP
+        raise notice 'Nome do empregado: %', nome_empregado;
+    end loop;
+end;
+$$ language plpgsql;
+
+select showEmpregado();
