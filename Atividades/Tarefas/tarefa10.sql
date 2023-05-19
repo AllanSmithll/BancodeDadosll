@@ -114,8 +114,8 @@ select * from empregado;
 
 -- Atualizar datas aleatórias dos epregados, para que tenham mais de 21 anos
 UPDATE empregado
-SET data_nascimento = CURRENT_DATE - INTERVAL '1 years' * random() * 50
-WHERE date_part('year', age(data_nascimento)) < 21;
+SET datanasc = CURRENT_DATE - INTERVAL '1 years' * random() * 50
+WHERE date_part('year', age(datanasc)) < 21;
 
 select primeironome, datanasc
 from empregado;
