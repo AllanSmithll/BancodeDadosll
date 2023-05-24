@@ -1,0 +1,91 @@
+# Operações CRUD básicas
+# -----------------------------------------------------------------
+
+
+# Inserir um documento na minhanovacoleção e criar a coleção
+db.minhanovacoleção.insertOne({nome: "João"})
+
+#inserir mais um único documento na mesma coleção 
+db.minhanovacoleção.insertOne( 
+  { nome: "Marcia", idade: 23, hobbies: ["dança", "filmes"], 
+    endereço: { rua: "JJ", num: 35, apto: 202 } } )
+    
+#verificando inserção
+    
+db.minhanovacoleção.find( { nome: "Marcia" } )
+    
+#inserindo a partir de uma variavel
+document = ( { nome: "Anísio", idade: 36, hobbies: ["futebol", "rock"], endereço: { rua: "MM", num: 305, apto: 502 } } )
+db.minhanovacoleção.insert(document)
+
+#consultar a coleção
+
+db.minhanovacoleção.find( { nome: "Marcia" } )
+
+# inserir vários documentos em uma coleção
+db.minhanovacoleção.insertMany( [ 
+  { nome: "Alana", idade: 33, hobbies: ["volley", "filmes"], 
+           endereço: { rua: "XX", num: 305, apto: 502 } }, 
+  { nome: "Alvaro", idade: 43, hobbies: ["volley", "squash"], 
+           endereço: { rua: "YY", num: 43 } }]  )
+           
+db.minhanovacolecão.insertMany( [ 
+  { nome: "Allan", idade:18, hobbies: ["futsal","animes"],
+            endereço: {rua: "Tal", num: 04, apto: 100 } },
+  { nome: "Marcio", idade:20, hobbies: ["futsal","academia"],
+            endereço: {rua: "Acolá", num: 2029, apto: 200 } }] )
+
+# criando coleção quando se cria índice ou se insere documento 
+db.NovaColeçãoTeste.insertOne({x: 1})
+db.NovaColeçãoTeste3.createIndex({y: 1})
+
+# contando documentos na coleção
+db.minhanovacoleção.count();
+
+# Recuperando documentos com o FIND
+db.minhanovacoleção.find( {nome : "Marcia"})
+
+#filtros
+db.minhanovacoleção.find( { nome: "João" } )
+db.minhanovacoleção.find( { nome: { $in: [ "João", "Marcia" ] } } )
+db.minhanovacoleção.find( { nome: /^A/ } )
+
+db.minhanovacoleção.find({ 
+$or : 
+    [ {"nome" : "Alvara"}, 
+      {"nome" : "Alvaro"} ] }) 
+
+db.minhanovacoleção.find(
+{ "nome" : 
+{ $in : ["Alvara", "Alvaro"] } }) 
+
+# find com projeção
+db.minhanovacoleção.find( { nome: { $in: [ "João", "Marcia" ] } }, { nome: 1, idade: 1 } )
+db.minhanovacoleção.find( { nome: { $in: [ "João", "Marcia" ] } }, { nome: 1, idade: 1, _id: 0  } )
+
+#acesso a documentos embutidos
+db.minhanovacoleção.find( { endereço: { rua: "JJ", num: 35, apto: 202 } } )
+db.minhanovacoleção.find( { "endereço.rua": "JJ" } )
+
+# acesso a arrays
+db.minhanovacoleção.find( { "hobbies.1": "filmes" } )
+db.minhanovacoleção.find( { hobbies: ["volley", "filmes"] } )
+db.minhanovacoleção.find( { hobbies: { $all: ["filmes", "volley"] } } )
+
+# outras consultas
+
+db.minhanovacoleção.find( { nome: "Alvaro" }, { idade: 0, _id: 0 } )
+
+db.minhanovacoleção.find( { nome: "Alvaro" }, { idade: 1, "endereço.rua": 1 } )
+
+# atualizando dados
+db.minhanovacoleção.updateOne( { "nome" : "Alvaro" }, { $set: { "idade" : 43 } })
+
+db.minhanovacoleção.updateMany( { idade: { $gt: 40 } }, { $set: { "Bônus" : true } } )
+
+db.minhanovacoleção.update( { "nome" : "Alvara" }, { $set: {"idade" : 57, hobbies: ["judo", "filmes"], 
+   endereço: { rua: "KK", num: 305, apto: 202 } } }, 
+   { upsert: true })
+
+# removendo objeto
+db.minhanovacoleção.deleteOne( { Bônus: true } )
