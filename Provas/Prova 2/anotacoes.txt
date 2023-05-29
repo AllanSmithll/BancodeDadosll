@@ -1,0 +1,169 @@
+1. Transações
+Todas as operações no BD são chamadas de Transações
+
+1.2 Propriedades ACID:
+    - Atomicidade
+    - Consistência
+    - Isolamento
+    - Durabilidade
+
+1.3 - COMMIT ou ROLLBACK
+    - Se commit for executado, operação bem-sucedida
+    - Se rollback for executado, operação mal-sucedida
+1.4 Protocolos existentes
+    - Protocolos baseados em bloqueio
+    - Protocolos baseados em timestamp
+    - Multiversão dos dados - MVCC
+    Saber sobre deadlock:
+        ➢ Periodicamente verificam-se dependências entre transações, formando um grafo
+            ➢ Caso o grafo forme um ciclo, há um deadlock!
+    O MVCC -> SGBDs mantêm os valores antigos de um item de dado quando o item é atualizado.
+1.5 Início e dim de uma transação
+    BEGIN - -iniciar
+    - - comandos
+    - COMMIT - -comitar/confirmar
+    - ROLLBACK - -parar/cancelar
+    - END - -mesma função do COMMIT
+    ➢ Fim:
+    ° É emitida a cláusula commit, end ou
+    rollback
+    ° Um usuário se desconecta do
+    postgres (commit automaticamente executado)
+    ° Um processo de usuário termina anormalmente (há o rollback)
+1.6 Protocolos no postgres
+    ° MVCC + Bloqueios + timestamp
+    ° Locks podem ser explícitos, caso necessários
+        • LOCK TABLE produto IN SHARE MODE;
+            – Permite que outras transações apenas consultem a tabela
+        • LOCK TABLE produto IN EXCLUSIVE MODE;
+            – Apenas uma transação pode obter um bloqueio exclusivo por tabela
+            – Evita que outras transações façam locks nela
+    ° Quando ocorre deadlock no postgres
+        ➢Automaticamente detecta um deadlock
+            ° Resolve a situação fazendo um rollback de uma das sentenças que provocou o deadlock
+                • Assim, libera um conjunto dos recursos em questão
+1.7 SAVEPOINT
+    SAVEPOINT savepoint_name
+
+    ➢ Marcador intermediário
+        ° Dentro do contexto de uma transação.
+        ° Divide uma transação longa em partes menores.
+        ° Pode-se fazer um rollback antes de um desses pontos, sem necessariamente voltar ao início da transação.
+        ° Ex: SAVEPOINT sp1;
+    ➢ Geralmente usado com o comando ROLLBACK TO
+
+2. Índices
+
+2.1 Infomações importantes
+    ▪ Um índice é uma estrutura de BD usada pelo servidor para localizar rapidamente uma linha ou registro de uma tabela
+    ▪ Índices são estruturas auxiliares às tabelas com o objetivo de melhorar o desempenho no seu acesso
+    Sintaxe: create index name_index on nome_tabela(nome_coluna)
+    Pode se mantido em memória principal, se tiver tamanho suficiente
+    Independentes de tabela;
+    Podem ser únicos ou não;
+    podem ser definidos sobre uma ou mais colunas.
+2.2 Se ocorre alguma operação na tabela?
+    Se inserção, o index receberá a inserção, reorganizando-se
+    Se deleção, o index também é removido
+    Se update, o index também é atualizado
+2.3 Constraints
+    O SGBD normalmente cria, de forma automática, um índice para as chaves primárias e constraints unique
+2.4 Índices concatenados
+    ▪ Um índice composto ou índice concatenado é criado com várias colunas de uma tabela
+    ▪ Índices compostos podem acelerar a recuperação de dados para as instruções SELECT em que a cláusula where referencia as colunas do
+índice.
+2.5 Quando criar Índices
+    1- Tabela volumosa
+    2- Quando a(s) coluna(s) é(são) frequentemente usada(s) em WHERE, order by, group by ou em joins
+    3- Coluna com muitos valores distintos
+    4- A tabela tem muitas linhas, e as consultas retornam poucas linhas
+    5- Campos que são consultados em intervalo
+2.6 Quando NÃO criar
+    1- Tabelas pequenas
+    2- Não aparecem em condições ou joins
+    3- A tabela é atualizado com muita frequência
+    4- A colunas ou colunas são PK ou unique
+    5- A coluna é de tipo text
+2.7 Índice - implementação
+    BTree
+        ▪ Princípio básico: dividir os dados do índice em blocos
+
+3. PLpgsql
+
+3.1 Sintaxe DA função: 
+    create or replace nome_funcao(params) returns type/void/trigger as $$
+    [Declare]
+    BEGIN
+    end$$; language 'plpgsql';
+    Chamada: select nome_function(params)
+3.2 E da PROCEDURE:
+    ... procedure_name (arguments) language plpgsql as $$ [DECLARE] [BEGIN] ... [end]$$;
+    Chamada: call nome_procedure()
+3.3 Exemplo de bloco anônimo
+    DO $$DECLARE i int:= 0;
+    BEGIN
+        WHILE I <= 1000000 LOOP
+            INSERT INTO testaEMP select * from empregado;
+            I := I + 1;
+        END LOOP;
+    END$$;
+
+4. Cursores
+4.1 Uso de Cursor
+    DO $$
+    Declare
+        vdesc categoria.desccateg%type;
+        vcursor_categ CURSOR for Select desccateg from categoria;
+    Begin
+        Open vcursor_categ;
+        LOOP
+            fetch vcursor_categ into vdesc;
+            EXIT when NOT FOUND;
+            raise notice 'Nome Categoria = %', vdesc;
+        END LOOP;
+        Close vcursor_categ;
+    End$$;
+
+5. Exceções
+    NOT FOUND;
+    using hint;
+    RAISE notice
+    RAISE EXCEPTION;
+    bLOCO EXCEPTION puxa as exceções, when ocorre a exceção específica, ou OTHERS then
+
+6. Triggers
+
+6.1
+- Constraints complexas;
+- Armazenado no BD, imediatamente após um comando disparador. Pode ser DML -> INSERT, UPDATE ou DELETE. Pode ser comando DDL -> CREATE, ALTER, DROP, TRUNCATE;
+- CREATE TRIGGER name {BEFORE | AFTER | INSTEAD OF } {event [ OR ... ]} ON table_name [FROM referenced_table_name] [FOR [EACH] {ROW | STATEMENT}] [WHEN (condition)]
+EXECUTE PROCEDURE function_name (arguments)
+
+Exemplo melhor: 
+CREATE OR REPLACE TRIGGER name (BEFORE | AFTER) [(UPDATE) OR (DELETE) OR (INSERT)] ON table_name FOR EACH ROW
+EXECUTE PROCEDURE function_name (arguments)
+
+Variáveis base:
+
+New - nova linha para ops INSERT/UPDATE. Null quando DELETE
+Old - mantém linha antiga para ops UPDATE/DELETE. Null quando INSERT
+
+-- BEFORE E AFTER
+
+BEFORE - antes do disparador
+AFTER - depois do disparador
+
+-- When
+SÓ DISPARA SE A CONDIÇÃO FOR VERDADEIRA DENTRO DO TRIGGER
+
+-- Quando usar?
+
+Mecanismo de validação; criar logs;
+
+6.2
+
+- STATEMENT level - uma vez por commando
+- row level - uma vez por linha
+- Funções retornam Trigger
+- Em nível de linha, quando usamos o AFTER, o valor de retorno é ignorado
+- Porém, se usar BEFORE, não pode retornar null, senão a operação é abortada
