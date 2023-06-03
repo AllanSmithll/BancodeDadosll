@@ -1,0 +1,49 @@
+[ { "title" : "Testando arrays",
+    "tags" : [ 
+        "mongodb", 
+        "database"
+    ],
+    "likes" : 60.0,
+    "comments" : [ 
+        {
+            "user" : "melissa",
+            "message" : "Gostei",
+            "dateCreated" : "2023-03-21",
+            "likes" : 1.0
+        }, 
+        {
+            "user" : "klara",
+            "message" : "Achei complicado",
+            "dateCreated" : "2023-04-21",
+            "likes" : 13.0
+        }
+    ]
+},
+{
+    "titulo" : "MongoDB – Como usar?",
+    "descricao" : "MongoDB – Como",
+    "by" : "MongoDBExpert",
+    "url" : "http://www.mongodbexpert.com",
+    "tags" : [ 
+        "mongodb", 
+        "database", 
+        "NoSQL", 
+        "Document"
+    ],
+    "likes" : 100.0,
+    "comentarios" : [ 
+        {
+            "user" : "João",
+            "mensagem" : "Muito bom",
+            "dateCreated" : "2022-05-15",
+            "like" : 0.0
+        }, 
+        {
+            "user" : "Ana",
+            "mensagem" : "Poderia ser melhor",
+            "dateCreated" : "2022-05-16",
+            "like" : 5.0
+        }
+    ]
+}
+]

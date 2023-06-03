@@ -1,0 +1,408 @@
+[{
+    "_id": {
+      "$oid": "644aa413a703934612e89c2b"
+    },
+      "title" : "Testando arrays",
+      "tags" : [ 
+          "mongodb", 
+          "database"
+      ],
+      "likes" : 60.0,
+      "comments" : [ 
+          {
+              "user" : "melissa",
+              "message" : "Gostei",
+              "dateCreated" : "2023-03-21",
+              "likes" : 1.0
+          }, 
+          {
+              "user" : "klara",
+              "message" : "Achei complicado",
+              "dateCreated" : "2023-04-21",
+              "likes" : 13.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "637b73b0c255db481fdce783"
+    },   
+      "titulo" : "MongoDB – Como usar?",
+      "descricao" : "MongoDB – Como",
+      "by" : "MongoDBExpert",
+      "url" : "http://www.mongodbexpert.com",
+      "tags" : [ 
+          "mongodb", 
+          "database", 
+          "NoSQL", 
+          "Document"
+      ],
+      "likes" : 100.0,
+      "comentarios" : [ 
+          {
+              "user" : "João",
+              "mensagem" : "Muito bom",
+              "dateCreated" : "2022-05-15",
+              "like" : 0.0
+          }, 
+          {
+              "user" : "Ana",
+              "mensagem" : "Poderia ser melhor",
+              "dateCreated" : "2022-05-16",
+              "like" : 5.0
+          }
+      ]
+  },
+  
+  {
+    "_id": {
+      "$oid": "62c4b15344d10d4b78ae3af1"
+    },
+      "titulo" : "Introdução à programação com Python",
+      "descricao" : "Algoritmos em python",
+      "by" : "Novatec",
+      "url" : "http://www.novatec.com.br",
+      "tags" : [ 
+          "python", 
+          "programação", 
+          "algoritmos"
+      ],
+      "likes" : 50.0,
+      "comentarios" : [ 
+          {
+              "user" : "Eric",
+              "mensagem" : "Interessante para quem está iniciando",
+              "dateCreated" : "2022-06-10",
+              "like" : 15.0
+          }, 
+          {
+              "user" : "Maria",
+              "mensagem" : "Sensacional",
+              "dateCreated" : "2020-03-02",
+              "like" : 19.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "62c4b15344d10d4b78ae3af2"
+    },
+      "titulo" : "Engenharia de Software",
+      "descricao" : "Abordagem profissional",
+      "by" : "Bookman",
+      "url" : "http://www.bookman.com",
+      "tags" : [ 
+          "Engenharia", 
+          "software", 
+          "computação"
+      ],
+      "likes" : 231.0,
+      "comentarios" : [ 
+          {
+              "user" : "Paulo",
+              "mensagem" : "Fundamental para T.I",
+              "dateCreated" : "2021-07-15",
+              "like" : 22.0
+          }, 
+          {
+              "user" : "Carlos",
+              "mensagem" : "Leitura muito difícil",
+              "dateCreated" : "2022-04-09",
+              "like" : 19.0
+          }, 
+          {
+              "user" : "Jose",
+              "mensagem" : "Ainda não li, mas parece ser bom",
+              "dateCreated" : "2022-05-18",
+              "like" : 19.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "62c4b15344d10d4b78ae3af3"
+    },
+      "titulo" : "Matemática para TI",
+      "descricao" : "Uma dose na discreta e outra no contínuo",
+      "by" : "Didatica",
+      "url" : "http://www.didatica.com.br",
+      "tags" : [ 
+          "matematica", 
+          "computação"
+      ],
+      "likes" : 75.0,
+      "comentarios" : [ 
+          {
+              "user" : "Poliana",
+              "mensagem" : "Não gostei",
+              "dateCreated" : "2019-04-14",
+              "like" : 7.0
+          }
+      ]
+  },
+  
+  {
+    "_id": {
+      "$oid": "62c58fcb44d10d4b78ae3b09"
+    },
+      "titulo" : "PostGIS in Action",
+      "descricao" : "Obra Canônica",
+      "by" : "Obe e Hsu",
+      "url" : "http://www.manning.com",
+      "tags" : [ 
+          "PostGIS", 
+          "EPSG", 
+          "Geometry", 
+          "Geography"
+      ],
+      "likes" : 172.0,
+      "comentarios" : [ 
+          {
+              "user" : "João Carlos",
+              "mensagem" : "Ótimo!",
+              "dateCreated" : "2022-05-25",
+              "like" : 5.0
+          }, 
+          {
+              "user" : "Teo Marins",
+              "mensagem" : "Gostei, mas não foi relevante.",
+              "dateCreated" : "2022-05-20",
+              "like" : 2.0
+          }
+      ]
+  },
+  
+  {
+    "_id": {
+      "$oid": "62c58fcb44d10d4b78ae3b0a"
+    },
+      "titulo" : "Designing Better Maps - A Guide for GIS Users",
+      "descricao" : "Obra Canônica",
+      "by" : "Cinthya Brewer",
+      "url" : "http://www.brewercolors2.com",
+      "tags" : [ 
+          "Cartografia Temática", 
+          "Cores", 
+          "Fontes", 
+          "Rasters e Vetores"
+      ],
+      "likes" : 168.0,
+      "comentarios" : [ 
+          {
+              "user" : "Iran",
+              "mensagem" : "Obra competente, leitor incompetente.",
+              "dateCreated" : "2020-05-25",
+              "like" : 3.0
+          }, 
+          {
+              "user" : "Nick",
+              "mensagem" : "Um guia inestimável!",
+              "dateCreated" : "2021-05-22",
+              "like" : 5.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "62c58fcb44d10d4b78ae3b0b"
+    },
+      "titulo" : "The Data Warehouse Toolkit",
+      "descricao" : "Aborda ETL com vários exemplos",
+      "by" : "Kimball Ross",
+      "url" : "http://www.rossnomeinventado.com",
+      "tags" : [ 
+          "ETL", 
+          "Warehouse"
+      ],
+      "likes" : 510.0,
+      "comentarios" : [ 
+          {
+              "user" : "Climnestra",
+              "mensagem" : "Pratiquei todos os exercícios. Muito boa.",
+              "dateCreated" : "2023-02-11",
+              "like" : 4.0
+          }, 
+          {
+              "user" : "Bruce",
+              "mensagem" : "Excessivamente denso esse livro.",
+              "dateCreated" : "2021-03-12",
+              "like" : 1.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "62c592fd44d10d4b78ae3b0c"
+    },
+      "titulo" : "Introdução à Programação",
+      "descricao" : "Introdução a conceitos básicos de programação",
+      "by" : "ProgramaçãoParaIniciantes",
+      "url" : "http://www.introducaoprogramacao.com",
+      "tags" : [ 
+          "programação", 
+          "iniciantes"
+      ],
+      "likes" : 50.0,
+      "comentarios" : [ 
+          {
+              "user" : "Clara",
+              "mensagem" : "Muito bom",
+              "dateCreated" : "2022-05-15",
+              "like" : 0.0
+          }, 
+          {
+              "user" : "Joana",
+              "mensagem" : "Poderia ser melhor",
+              "dateCreated" : "2022-05-16",
+              "like" : 5.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "62c592fd44d10d4b78ae3b0d"
+    },
+      "titulo" : "IoT - Conceitos Básicos",
+      "descricao" : "Conceitos de IoT",
+      "by" : "IoTExperience",
+      "url" : "http://www.iot.com",
+      "tags" : [ 
+          "iot", 
+          "iniciantes"
+      ],
+      "likes" : 150.0,
+      "comentarios" : [ 
+          {
+              "user" : "Ana",
+              "mensagem" : "Muito bom",
+              "dateCreated" : "2022-05-15",
+              "like" : 0.0
+          }, 
+          {
+              "user" : "João",
+              "mensagem" : "Poderia ser melhor",
+              "dateCreated" : "2022-05-16",
+              "like" : 5.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "62c592fd44d10d4b78ae3b0e"
+    }, 
+      "titulo" : "Metodologia de Pesquisa",
+      "descricao" : "Início da MP",
+      "by" : "MetedologiasGerais",
+      "url" : "http://www.mp.com",
+      "tags" : [ 
+          "metodologias", 
+          "pesquisa", 
+          "MP"
+      ],
+      "likes" : 100.0,
+      "comentarios" : [ 
+          {
+              "user" : "Liz",
+              "mensagem" : "Muito bom",
+              "dateCreated" : "2022-05-15",
+              "like" : 0.0
+          }, 
+          {
+              "user" : "Theo",
+              "mensagem" : "Poderia ser melhor",
+              "dateCreated" : "2022-05-16",
+              "like" : 5.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "62c5956744d10d4b78ae3b10"
+    },
+      "titulo" : "Redis in Action",
+      "descricao" : "Examples that demonstrate how to use it effectively",
+      "by" : "Josiah Carlson",
+      "url" : "https://redis.io/",
+      "tags" : [ 
+          "redis", 
+          "database", 
+          "NoSQL", 
+          "chave-valor"
+      ],
+      "likes" : 100.0,
+      "comentarios" : [ 
+          {
+              "user" : "Renato",
+              "mensagem" : "Excelente",
+              "dateCreated" : "2022-05-23",
+              "like" : 8.0
+          }, 
+          {
+              "user" : "Helena",
+              "mensagem" : "Muito utilizado pelos devs",
+              "dateCreated" : "2022-05-16",
+              "like" : 7.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "62c5956744d10d4b78ae3b11"
+    },
+      "titulo" : "Neo4j Graph Data Modeling",
+      "descricao" : "Has a high performance",
+      "by" : "Packt Publishing",
+      "url" : "https://neo4j.com/",
+      "tags" : [ 
+          "neo4j", 
+          "database", 
+          "NoSQL", 
+          "graphs"
+      ],
+      "likes" : 100.0,
+      "comentarios" : [ 
+          {
+              "user" : "Pedro",
+              "mensagem" : "Difícil de entender",
+              "dateCreated" : "2022-03-14",
+              "like" : 1.0
+          }, 
+          {
+              "user" : "Carol",
+              "mensagem" : "Faltou exemplos",
+              "dateCreated" : "2022-01-10",
+              "like" : 3.0
+          }
+      ]
+  },
+  {
+    "_id": {
+      "$oid": "62c5956744d10d4b78ae3b12"
+    },
+      "titulo" : "Cassandra - The Definitive Guide",
+      "descricao" : "Introduction to Cassandra",
+      "by" : "Reilly Media",
+      "url" : "https://cassandra.apache.org/",
+      "tags" : [ 
+          "mongodb", 
+          "database", 
+          "NoSQL", 
+          "decentralized"
+      ],
+      "likes" : 100.0,
+      "comentarios" : [ 
+          {
+              "user" : "Higor",
+              "mensagem" : "Fundamental",
+              "dateCreated" : "2022-05-19",
+              "like" : 9.0
+          }, 
+          {
+              "user" : "Larissa",
+              "mensagem" : "Bem fundamentado",
+              "dateCreated" : "2022-05-20",
+              "like" : 8.0
+          }
+      ]
+  }
+  ]
